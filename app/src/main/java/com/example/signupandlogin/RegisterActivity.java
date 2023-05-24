@@ -53,9 +53,14 @@ public class RegisterActivity extends AppCompatActivity {
                         if(isValid(password)) {
                             String saltValue = PassBasedEnc.getSaltValue(30);
                             String passwordHash = PassBasedEnc.generateSecurePassword(password, saltValue);
-                            db.register(username, email, passwordHash, saltValue);
-                            Toast.makeText(getApplicationContext(), "Response recorded. You can now login to the app"+saltValue, Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            if(db.register(username, email, passwordHash, saltValue) == 0) {
+                                Toast.makeText(getApplicationContext(), "Response recorded. You can now login to the app", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            } else {
+                                Toast.makeText(getApplicationContext(), "This email is already registered. Please login", Toast.LENGTH_SHORT).show();
+                            }
+
+
                         } else {
                             Toast.makeText(getApplicationContext(), "Password must contain at least 8 characters, having letter, digit and special characters", Toast.LENGTH_SHORT).show();
                         }
