@@ -45,13 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = regPassword.getText().toString();
                 String confirm = regConfirmPassword.getText().toString();
                 String username = regName.getText().toString();
+                Database db = new Database(getApplicationContext(), "LifeAndLimbUserDatabase", null, 1);
                 if(email.length() == 0 || password.length() == 0){
                     Toast.makeText(getApplicationContext(), "Please fill all the required details", Toast.LENGTH_SHORT).show();
                 } else {
                     if(password.compareTo(confirm)==0){
                         if(isValid(password)) {
-
-                            Toast.makeText(getApplicationContext(), "Response recorded. You can now login to the app", Toast.LENGTH_SHORT).show();
+                            String saltValue = PassBasedEnc.getSaltValue(30);
+                            String passwordHash = PassBasedEnc.generateSecurePassword(password, saltValue);
+                            db.register(username, email, passwordHash, saltValue);
+                            Toast.makeText(getApplicationContext(), "Response recorded. You can now login to the app"+saltValue, Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                         } else {
                             Toast.makeText(getApplicationContext(), "Password must contain at least 8 characters, having letter, digit and special characters", Toast.LENGTH_SHORT).show();
@@ -64,24 +67,24 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public static boolean isValid(String passwordhere) {
+    public static boolean isValid(String passwordHere) {
         int f1 = 0;
         int f2 = 0;
         int f3 = 0;
-        int length = passwordhere.length();
+        int length = passwordHere.length();
         if ( length < 0) {
             return false;
         } else {
             for (int p = 0; p < length; p++) {
-                if (Character.isLetter(passwordhere.charAt(p))) {
+                if (Character.isLetter(passwordHere.charAt(p))) {
                     f1 = 1;
                 }
             }for (int r = 0; r < length; r++) {
-                if (Character.isDigit(passwordhere.charAt(r))) {
+                if (Character.isDigit(passwordHere.charAt(r))) {
                     f2 = 1;
                 }
             }for (int s = 0; s < length; s++) {
-                char c = passwordhere.charAt(s);
+                char c = passwordHere.charAt(s);
                 if(c >= 33 && c <= 46 || c ==64) {
                     f3 = 1;
                 }
