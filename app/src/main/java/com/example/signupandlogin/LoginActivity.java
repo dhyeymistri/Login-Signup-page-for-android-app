@@ -24,6 +24,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("logged", true)) {
+            startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
+            finish();
+        }
+
         logUsername = findViewById(R.id.et_email);
         logPassword = findViewById(R.id.et_password);
         log_btn = findViewById(R.id.btn_login);
@@ -43,8 +49,10 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("username", username);
-                        editor.apply(); //to save our data with key and value
+                        editor.putBoolean("logged", true);
+                        editor.apply() ; //to save our data with key and value
                         startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
+                        finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid E-mail/Password", Toast.LENGTH_SHORT).show();
                     }
