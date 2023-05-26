@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegisterFragment"
-    android:id="@+id/pager">
+    tools:context=".RegisterActivity"
+    >
 
 
     <TextView
@@ -102,6 +102,7 @@
             android:background="@drawable/btn_custom"
             android:fontFamily="@font/roboto_regular"
             android:layout_marginLeft="20dp"
+            android:onClick="onPressedRegister"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
             android:layout_centerInParent="true"

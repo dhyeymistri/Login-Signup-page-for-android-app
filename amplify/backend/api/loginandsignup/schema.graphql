@@ -1,0 +1,9 @@
+
+type User
+    @model
+    @auth(rules: [{allow: groups, groups: ["admin"], operations: [create, delete, update] } ] ) {
+
+    id: ID!
+    name: String
+}
+

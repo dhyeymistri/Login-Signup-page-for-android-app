@@ -17,4 +17,7 @@
     <string name="dashboard_title">Welcome User</string>
     <string name="your_name">Enter your name</string>
     <string name="todo">TODO</string>
+    <string name="confirmation_code">Confirmation Code</string>
+    <string name="confirm_your_email">Confirm Your Email</string>
+    <string name="confirm">Confirm</string>
 </resources>
