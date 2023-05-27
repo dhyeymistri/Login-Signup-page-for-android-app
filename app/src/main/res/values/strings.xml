@@ -20,4 +20,10 @@
     <string name="confirmation_code">Confirmation Code</string>
     <string name="confirm_your_email">Confirm Your Email</string>
     <string name="confirm">Confirm</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="new_password">Enter new password</string>
+    <string name="re_type_new_password">Confirm new password</string>
+    <string name="reset_password_email">Let us know your email</string>
+    <string name="send_verification_code">Send verification code</string>
+    <string name="enter_verification_code">Enter verification code</string>
 </resources>

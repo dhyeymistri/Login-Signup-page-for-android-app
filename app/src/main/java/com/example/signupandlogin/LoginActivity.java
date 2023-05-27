@@ -103,4 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void onForgotPasswordPressed(View view) {
+        startActivity(new Intent(LoginActivity.this, ResetPasswordActivity0.class));
+    }
 }

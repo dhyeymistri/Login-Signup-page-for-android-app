@@ -20,7 +20,7 @@ import com.amplifyframework.datastore.DataStoreItemChange;
 import com.amplifyframework.datastore.generated.model.User;
 
 public class EmailConfirmationActivity extends AppCompatActivity {
-    String currentUserId;
+//    String currentUserId;
     Intent i;
     Bundle bundle;
 
