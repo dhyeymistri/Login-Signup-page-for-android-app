@@ -1,5 +1,7 @@
 package com.example.signupandlogin;
 
+import static com.amplifyframework.core.Amplify.Auth;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,37 +15,34 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.amplifyframework.auth.AuthException;
+import com.amplifyframework.auth.AuthSession;
 import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.auth.AuthUserAttribute;
 import com.amplifyframework.core.Amplify;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     String currentUser;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
+        Amplify.Auth.fetchUserAttributes(this::onSuccess, this::onError);
+    }
 
-        Amplify.Auth.getCurrentUser(authUser -> {
-            currentUser = authUser.getUserId();
-        }, exception -> {
-            Log.e("MyAmplifyApp", "Error getting current user", exception);
-        });
-//        AuthUser currentUser = Amplify.Auth.currentAuthenticatedUser();
+    private void onSuccess(List<AuthUserAttribute> authUserAttributes) {
+        intent = new Intent(getApplicationContext(), HomePageActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
-        Intent intent;
-        if(currentUser == null) {
-            //Go to login page
-            intent = new Intent(getApplicationContext(), LoginActivity.class);
-        } else {
-            //Go to Home page
-            intent = new Intent(getApplicationContext(), HomePageActivity.class);
-        }
-
-        //Start Activity
+    private void onError(AuthException e) {
+        intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finish();
     }

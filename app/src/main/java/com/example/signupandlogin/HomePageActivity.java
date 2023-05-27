@@ -80,5 +80,6 @@ public class HomePageActivity extends AppCompatActivity {
         });
 
         startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
+        finish();
     }
 }
